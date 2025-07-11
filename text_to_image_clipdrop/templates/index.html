@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Image Generator</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+    .bg-video {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -1;
+    }
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.7);
+      padding: 30px;
+      border-radius: 12px;
+      color: #fff;
+      text-align: center;
+      width: 90%;
+      max-width: 600px;
+    }
+    input, select, button {
+      padding: 10px;
+      width: 90%;
+      margin: 10px auto;
+      display: block;
+      border: none;
+      border-radius: 8px;
+    }
+    button {
+      background-color: #00f2ff;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<video autoplay muted loop class="bg-video">
+  <source src="/static/ai_world.mp4" type="video/mp4">
+</video>
+
+<div class="content">
+  <h2>🌟 AI Text to Image Generator</h2>
+  <form method="POST">
+    <input type="text" name="prompt" placeholder="Enter your scene..." required>
+    <select name="style">
+      <option value="2D">2D</option>
+      <option value="3D">3D</option>
+      <option value="Anime">Anime</option>
+      <option value="Ghibli">Ghibli</option>
+      <option value="Cinematic">Cinematic</option>
+    </select>
+    <button type="submit">Generate</button>
+  </form>
+
+  {% if image_url %}
+    <img src="{{ image_url }}" alt="Generated Image">
+  {% elif error %}
+    <p style="color: red;">{{ error }}</p>
+  {% endif %}
+</div>
+
+</body>
+</html>
